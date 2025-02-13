@@ -16,9 +16,9 @@ Shoe-ECommerce is an online marketplace where registered sellers can add approve
 |--------------|----------------|------------------------------|
 | Caleb Studdie | cstuddie       | Team Leader, Full-Stack Developer |
 | Ashmit Mishra | ashmitkmishra              | Front-End Developer         |
-| Jacob Philips | -              | Back-End Developer         |
-| Andra Dusin   | -              | Back-End Developer         |
-| Avian Rose    | -              | Front-End Developer         |
+| Jacob Philips | JacobSPhillips          | Back-End Developer         |
+| Andra Dusin   | DusinA              | Back-End Developer         |
+| Avian Rose    | RoseGuy20              | Front-End Developer         |
 
 ## Features
 - Seller registration and product management
