@@ -15,7 +15,7 @@ Shoe-ECommerce is an online marketplace where registered sellers can add approve
 | Name           | GitHub Username | Role                          |
 |--------------|----------------|------------------------------|
 | Caleb Studdie | cstuddie       | Team Leader, Full-Stack Developer |
-| Ashmit Mishra | -              | Front-End Developer         |
+| Ashmit Mishra | ashmitkmishra              | Front-End Developer         |
 | Jacob Philips | -              | Back-End Developer         |
 | Andra Dusin   | -              | Back-End Developer         |
 | Avian Rose    | -              | Front-End Developer         |
@@ -30,4 +30,4 @@ Shoe-ECommerce is an online marketplace where registered sellers can add approve
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/cstuddie/Shoe-ECommerce
