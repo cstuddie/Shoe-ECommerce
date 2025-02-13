@@ -1,13 +1,33 @@
 # Shoe-ECommerce
-An E-Commerce platform dedicated to selling shoes. Will be available through any standard web browser.
 
-This will be an E-Commerce platform where registered sellers can add approved items to the store and manage their products. Customers will be able to interact with the website in a variety of ways, and the system will handle payments, tracking, and even discounts and promotions!
+An E-Commerce platform dedicated to selling shoes. This platform will be accessible through any standard web browser.
 
-Team:
-Caleb Studdie, cstuddie, team leader, front end/back end developer
-Ashmit Mishra, front-end developer
-Jacob Philips, back-end developer
-Andra Dusin, back-end developer
-Avian Rose, front-end developer
+## Overview
+Shoe-ECommerce is an online marketplace where registered sellers can add approved items to the store and manage their products. Customers will have various interaction options, including browsing products, making purchases, tracking orders, and accessing discounts and promotions. The system will also handle payments and order tracking seamlessly.
 
-This project will be built using HTML, CSS, JavaScript, Node.js
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+- Node.js
+
+## Team Members
+| Name           | GitHub Username | Role                          |
+|--------------|----------------|------------------------------|
+| Caleb Studdie | cstuddie       | Team Leader, Full-Stack Developer |
+| Ashmit Mishra | -              | Front-End Developer         |
+| Jacob Philips | -              | Back-End Developer         |
+| Andra Dusin   | -              | Back-End Developer         |
+| Avian Rose    | -              | Front-End Developer         |
+
+## Features
+- Seller registration and product management
+- Customer product browsing and purchasing
+- Secure payment processing
+- Order tracking
+- Discounts and promotions
+
+## Installation
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
