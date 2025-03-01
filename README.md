@@ -12,13 +12,13 @@ Shoe-ECommerce is an online marketplace where registered sellers can add approve
 - Node.js
 
 ## Team Members
-| Name           | GitHub Username | Role                          |
-|--------------|----------------|------------------------------|
-| Caleb Studdie | cstuddie       | Team Leader, Full-Stack Developer |
-| Ashmit Mishra | ashmitkmishra              | Full-stack Developer         |
-| Jacob Philips | JacobSPhillips          | Back-End Developer         |
-| Andra Dusin   | DusinA              | Back-End Developer         |
-| Avian Rose    | RoseGuy20              | Front-End Developer         |
+| Name           | NetID      | GitHub Username | Role                          |
+|--------------|------------|----------------|------------------------------|
+| Caleb Studdie | chs263     | cstuddie       | Team Leader, Full-Stack Developer |
+| Ashmit Mishra | am5087     | ashmitkmishra              | Full-stack Developer         |
+| Jacob Philips | jsp452     | JacobSPhillips          | Back-End Developer         |
+| Andra Dusin   | ard515     | DusinA              | Back-End Developer         |
+| Avian Rose    | adr554     | RoseGuy20              | Front-End Developer         |
 
 ## Features
 - Seller registration and product management
