@@ -1,0 +1,155 @@
+.App {
+  text-align: center;
+}
+
+.main-content {
+  min-height: calc(100vh - 160px); /* Adjust based on Navbar and Footer height */
+  padding: 20px 0; /* Add some padding */
+}
+
+/* Basic Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* --- Component Specific Styles --- */
+
+/* Navbar Styles */
+.navbar {
+  background-color: #333;
+  color: white;
+  padding: 15px 0;
+  margin-bottom: 20px; /* Add space below navbar */
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  background-color: #555;
+}
+
+/* Hero Styles */
+.hero {
+  background: #e2e2e2 url('https://via.placeholder.com/1200x400?text=Awesome+Shoe+Banner') center center/cover no-repeat; /* Placeholder image */
+  color: #333; /* Changed text color for better contrast on lighter bg */
+  padding: 80px 20px;
+  text-align: center;
+  margin-bottom: 30px; /* Space below hero */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+.hero h1 {
+  font-size: 2.8em;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+}
+
+.hero-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+  background-color: #0056b3;
+}
+
+/* Featured Products Styles */
+.featured-products {
+  padding: 40px 0;
+}
+
+.featured-products h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 25px; /* Space between grid items */
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  max-width: 100%;
+  height: 180px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensures image covers the area well */
+  margin-bottom: 15px;
+  border-radius: 4px; /* Slightly rounded image corners */
+  background-color: #eee; /* Placeholder bg color */
+}
+
+.product-card h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.product-card p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.product-card .price {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+}
+
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  margin-top: 40px; /* Add space above footer */
+  text-align: center;
+  font-size: 0.9em;
+}
