@@ -1,19 +1,45 @@
 import React from 'react';
-// We will use React Router's Link component later instead of <a> tags
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar() {
+// Receives simulated state and logout handler from App.js props
+function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
+  const navigate = useNavigate();
+
+  const handleLogoutClick = () => {
+    onLogout(); // Call the logout handler from App.js
+    navigate('/'); // Redirect to home page after logout
+  };
+
   return (
     <nav className="navbar">
       <div className="container">
-        {/* Replace '#' with '/' for home link later */}
-        <a href="#" className="navbar-brand">ShoeStore</a>
+        <Link to="/" className="navbar-brand">ShoeStore</Link>
         <div className="navbar-links">
-          {/* Replace '#' with actual paths later e.g., '/products', '/cart', '/login' */}
-          <a href="#">Home</a>
-          <a href="#">Products</a>
-          <a href="#">Cart</a>
-          <a href="#">Login/Sign Up</a>
+          <Link to="/">Home</Link>
+          {/* Add link to Products page later */}
+          {/* <Link to="/products">Products</Link> */}
+
+          {isAuthenticated ? (
+            <>
+              {/* === Role Specific Links (Simulation) === */}
+              {userRole === 'admin' && <Link to="/admin">Admin Panel</Link>}
+              {userRole === 'seller' && <Link to="/seller">Seller Dashboard</Link>}
+              {/* === End Role Specific Links === */}
+
+              <Link to="/profile">Profile ({userName})</Link> {/* Show simulated name */}
+              {/* Add link to Cart page later */}
+              {/* <Link to="/cart">Cart</Link> */}
+              <button onClick={handleLogoutClick} className="logout-button" style={{ marginLeft:'10px', cursor:'pointer', background:'transparent', border:'none', color:'white', padding:'5px 10px' }}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              {/* <Link to="/cart">Cart</Link> */}
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
