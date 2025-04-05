@@ -1,3 +1,4 @@
+// src/components/Auth/SignupForm.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -50,25 +51,41 @@ function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto' }}>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {message && <p style={{ color: 'green' }}>{message}</p>}
+    // Using basic inline styles for structure, replace with CSS classes later
+    <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fff' }}>
+      {error && <p style={{ color: 'red', marginBottom: '1rem' }}>{error}</p>}
+      {message && <p style={{ color: 'green', marginBottom: '1rem' }}>{message}</p>}
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="name">Full Name:</label>
-        <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} style={{ width: '100%', padding: '8px', marginTop: '4px' }} />
+        <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Full Name:</label>
+        <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            style={{ width: 'calc(100% - 16px)', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
       </div>
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: '100%', padding: '8px', marginTop: '4px' }} placeholder="Enter taken@example.com to simulate error"/>
+        <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
+        <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter taken@example.com to simulate error"
+            style={{ width: 'calc(100% - 16px)', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
       </div>
        {/* --- Role Selector for Simulation --- */}
        <div style={{ marginBottom: '1rem' }}>
-            <label htmlFor="role-select-signup">Register as:</label>
+            <label htmlFor="role-select-signup" style={{ display: 'block', marginBottom: '5px' }}>Register as:</label>
             <select
                 id="role-select-signup"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                style={{ width: '100%', padding: '8px', marginTop: '4px' }}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: 'white' }}
             >
                 <option value="user">Customer</option>
                 <option value="seller">Seller</option>
@@ -77,18 +94,32 @@ function SignupForm() {
        </div>
        {/* --- End Role Selector --- */}
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: '100%', padding: '8px', marginTop: '4px' }} />
+        <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
+        <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ width: 'calc(100% - 16px)', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
       </div>
       <div style={{ marginBottom: '1rem' }}>
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} style={{ width: '100%', padding: '8px', marginTop: '4px' }} />
+        <label htmlFor="confirmPassword" style={{ display: 'block', marginBottom: '5px' }}>Confirm Password:</label>
+        <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            style={{ width: 'calc(100% - 16px)', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
       </div>
-      <button type="submit" style={{ padding: '10px 15px', cursor: 'pointer' }}>
+      <button type="submit" style={{ padding: '10px 15px', cursor: 'pointer', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', width: '100%' }}>
         Sign Up
       </button>
-      <p style={{ marginTop: '1rem' }}>
-        Already have an account? <Link to="/login">Login</Link>
+      <p style={{ marginTop: '1rem', textAlign: 'center' }}>
+        Already have an account? <Link to="/login" style={{ color: '#007bff', textDecoration: 'none' }}>Login</Link>
       </p>
     </form>
   );
