@@ -52,38 +52,52 @@
 
 /* Hero Styles */
 .hero {
-  background: #e2e2e2 url('https://via.placeholder.com/1200x400?text=Awesome+Shoe+Banner') center center/cover no-repeat; /* Placeholder image */
-  color: #333; /* Changed text color for better contrast on lighter bg */
-  padding: 80px 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1740&q=80')
+  center center/cover no-repeat;
+  color: white; /* Changed text color for better contrast on lighter bg */
+  padding: 100px 20px;
   text-align: center;
   margin-bottom: 30px; /* Space below hero */
-  border-radius: 8px; /* Slightly rounded corners */
+  border-radius: 0px;  /* Slightly rounded corners */
   box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+  min-height: 40vh; /* Give it a minimum height */
+  display: flex; /* Use flexbox to easily center content vertically */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero h1 {
-  font-size: 2.8em;
+  font-size: 3.5em; /* Make title bigger */
   margin-bottom: 15px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Add subtle shadow to text */
 }
 
 .hero p {
-  font-size: 1.2em;
-  margin-bottom: 25px;
+  font-size: 1.5em; /* Make subtitle bigger */
+  margin-bottom: 30px; /* Increased space */
+  max-width: 600px; /* Limit width of subtitle */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Add subtle shadow to text */
 }
 
 .hero-button {
   background-color: #007bff;
   color: white;
-  padding: 12px 25px;
-  font-size: 1.1em;
+  padding: 15px 30px; /* Make button bigger */
+  font-size: 1.2em; /* Increase font size */
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add shadow to button */
 }
 
 .hero-button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift on hover */
 }
 
 /* Featured Products Styles */

@@ -1,11 +1,15 @@
 import React from 'react';
+import shoe1 from './assets/runningshoes.jpg';
+import shoe2 from './assets/classicrunning.jpg';
+import shoe3 from './assets/urbanshoes.jpg';
+import shoe4 from './assets/casual.webp';
 
 // Placeholder data - This will come from your backend API later
 const placeholderProducts = [
-  { id: 1, name: 'Stylish Runner', price: '$120', imageUrl: 'https://via.placeholder.com/250x180?text=Shoe+1' },
-  { id: 2, name: 'Classic Comfort', price: '$90', imageUrl: 'https://via.placeholder.com/250x180?text=Shoe+2' },
-  { id: 3, name: 'Urban Explorer', price: '$150', imageUrl: 'https://via.placeholder.com/250x180?text=Shoe+3' },
-  { id: 4, name: 'Casual Walker', price: '$85', imageUrl: 'https://via.placeholder.com/250x180?text=Shoe+4' },
+  { id: 1, name: 'Stylish Runner', price: '$120', imageUrl: shoe1},
+  { id: 2, name: 'Classic Comfort', price: '$90', imageUrl: shoe2},
+  { id: 3, name: 'Urban Explorer', price: '$150', imageUrl: shoe3 },
+  { id: 4, name: 'Casual Walker', price: '$85', imageUrl: shoe4 },
 ];
 
 function FeaturedProducts() {
