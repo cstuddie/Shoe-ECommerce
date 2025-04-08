@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 
-
+// redirect for testing
 app.get('/', (req, res) => {
     connection.query('SELECT * FROM User', (err, users) => {
         if (err) throw err;
@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
 
 
 // users CRUD -----------------------------------------------------------------------------------------------
+// Read functionality
 app.get('/users', (req, res) => {
     connection.query('SELECT * FROM User', (err, results) => {
         if (err) throw err;
@@ -25,7 +26,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-
+// Create/Insert functionality
 app.post('/users', (req, res) => {
     const user = req.body;
     var sql = "INSERT INTO User (Email, Password, Classification) VALUES ('" + user.Email + "', '" + user.Password + "', '" + user.Classification + "')";
@@ -35,7 +36,7 @@ app.post('/users', (req, res) => {
     });
 });
 
-
+// Update functionality
 app.put('/users/:id', (req, res) => {
     const user = req.body;
     connection.query('UPDATE User SET ? WHERE id = ?', [user, req.params.id], (err, results) => {
@@ -44,7 +45,7 @@ app.put('/users/:id', (req, res) => {
     });
 });
 
-
+// Delete functionality
 app.delete('/users/:id', (req, res) => {
     var sql = "DELETE FROM User WHERE id = '" + req.params.id + "'";
     connection.query(sql, (err, results) => {
@@ -60,7 +61,7 @@ app.delete('/users/:id', (req, res) => {
 
 
 
-
+// Connections
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
