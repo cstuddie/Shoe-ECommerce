@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ProfilePage from './pages/ProfilePage';
+import ProductPage from './pages/ProductPage';
+import InventoryPage from './pages/InventoryPage';
 // Import placeholder Admin/Seller pages later if needed for testing Nav links
 // import AdminDashboardPage from './pages/AdminDashboardPage';
 // import SellerDashboardPage from './pages/SellerDashboardPage';
@@ -66,6 +68,10 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<HomePage />} />
+
+            {/* Product/Inventory Routes */}
+            <Route path="/product/:productId" element={<ProductPage />} />
+            <Route path="/inventory" element={<InventoryPage />} />
 
             {/* Redirect logged-in users away from login/signup */}
             <Route

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import shoe1 from './assets/runningshoes.jpg';
 import shoe2 from './assets/classicrunning.jpg';
 import shoe3 from './assets/urbanshoes.jpg';
@@ -19,12 +20,11 @@ function FeaturedProducts() {
         <h2>Featured Products</h2>
         <div className="product-list">
           {placeholderProducts.map(product => (
-            <div key={product.id} className="product-card">
+            <Link to={`/product/${product.id}`} key={product.id} className="product-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <img src={product.imageUrl} alt={product.name} />
               <h3>{product.name}</h3>
               <p className="price">{product.price}</p>
-              {/* Add to Cart button will be added later */}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
