@@ -23,7 +23,7 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     const user = req.body;
     var sql = "INSERT INTO User (Email, Password, Classification) VALUES ('" + user.Email + "', '" + user.Password + "', '" + user.Classification + "')";
-    connection.query(sql, user, (err, results) => {
+    connection.query(sql, (err, results) => {
         if (err) throw err;
         res.json({ id: results.insertId, ...user });
     });
@@ -40,7 +40,8 @@ app.put('/users/:id', (req, res) => {
 
 
 app.delete('/users/:id', (req, res) => {
-    connection.query('DELETE FROM users WHERE id = ?', req.params.id, (err, results) => {
+    var sql = "DELETE FROM User WHERE id = '" + req.params.id + "'";
+    connection.query(sql, (err, results) => {
         if (err) throw err;
         res.json({ id: req.params.id });
     });
