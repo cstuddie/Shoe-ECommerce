@@ -5,7 +5,7 @@ function Hero() {
   return (
     <div className="hero">
       <div className="container">
-        <h1>Welcome to ShoeStore</h1>
+        <h1>Welcome to Stepup</h1>
         <p>Find your perfect pair today!</p>
         <Link to="/inventory" style={{ textDecoration: 'none' }}>
           <button className="hero-button">Shop Now</button>
