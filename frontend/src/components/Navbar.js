@@ -23,7 +23,7 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
     <nav className="navbar">
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Link to="/" className="navbar-brand">ShoeStore</Link>
+          <Link to="/" className="navbar-brand">Stepup</Link>
           <Link to="/inventory" style={{ color: 'white', marginLeft: '20px', textDecoration: 'none' }}></Link>
         </div>
 
