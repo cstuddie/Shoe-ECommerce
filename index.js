@@ -12,7 +12,7 @@ app.use(methodOverride('_method'));
 app.get('/', (req, res) => {
     connection.query('SELECT * FROM User', (err, users) => {
         if (err) throw err;
-        res.render('test.ejs', {users});
+        res.render('test.ejs', { users });
     });
 });
 
@@ -32,16 +32,27 @@ app.post('/users', (req, res) => {
     var sql = "INSERT INTO User (Email, Password, Classification) VALUES ('" + user.Email + "', '" + user.Password + "', '" + user.Classification + "')";
     connection.query(sql, (err, results) => {
         if (err) throw err;
-        res.json({ id: results.insertId, ...user });
+        res.redirect('/');
     });
 });
 
 // Update functionality
-app.put('/users/:id', (req, res) => {
-    const user = req.body;
-    connection.query('UPDATE User SET ? WHERE id = ?', [user, req.params.id], (err, results) => {
+app.get('/:id', (req, res) => {
+    var sql = "SELECT * FROM User WHERE id = '" + req.params.id + "'";
+    connection.query(sql, (err, results) => {
         if (err) throw err;
-        res.json({ id: req.params.id, ...user });
+        const user = results[0];
+        res.render('test_update.ejs', { user });
+        console.log(user);
+    });
+});
+
+app.put('/:id/edit', (req, res) => {
+    const user = req.body;
+    var sql = "UPDATE User SET Email = '" + user.Email + "', Password = '" + user.Password + "', Classification = '" + user.Classification + "' WHERE id = '" + req.params.id + "'";
+    connection.query(sql, (err, results) => {
+        if (err) throw err;
+        res.redirect('/');
     });
 });
 
