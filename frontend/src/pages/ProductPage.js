@@ -1,6 +1,8 @@
 // src/pages/ProductPage.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { productData as baseProductData } from './pages/ProductPage';
+
 
 // will eventually come from DB, but mock data for now
 // Added sellerId and isListed properties for simulation
@@ -343,5 +345,5 @@ function ProductPage({ onAddToCart, onAddToWishlist }) { // Receive onAddToWishl
     </div>
   );
 }
-
-export default ProductPage;
+export default ProductPage; // Exports the component as default
+export { productData }; // Exports the productData object by name

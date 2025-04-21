@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import ProductPage from './pages/ProductPage'; // Your existing ProductPage
 import InventoryPage from './pages/InventoryPage';
 import ProtectedRoute from './components/Auth/ProtectedRoute'; // Your existing ProtectedRoute
+import { productData as baseProductData } from './pages/ProductPage';
 
 import CartPage from './pages/CartPage'; // Your existing CartPage
 import CheckoutPage from './pages/CheckoutPage'; // Your existing CheckoutPage
@@ -30,7 +31,6 @@ const PRODUCT_DATA_STORAGE_KEY = 'simulatedProductData'; // Key for product data
 // === Import the base productData ===
 // This is imported once to provide the initial state structure
 // Make sure productData is exported from ProductPage.js using `export { productData };`
-import { productData as baseProductData } from './pages/ProductPage';
 // === End Import ===
 
 
