@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-// Receives simulated state and logout handler from App.js props
-function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
+// Receives simulated state, logout handler, and cartItemCount from App.js props
+function Navbar({ isAuthenticated, userRole, userName, onLogout, cartItemCount }) { // Receive cartItemCount
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -14,8 +14,9 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      // Navigate to the Inventory page with the search term as a query parameter
       navigate(`/inventory?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
+      setSearchQuery(''); // Clear the search input after submitting
     }
   };
 
@@ -24,22 +25,24 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Link to="/" className="navbar-brand">Stepup</Link>
-          <Link to="/inventory" style={{ color: 'white', marginLeft: '20px', textDecoration: 'none' }}></Link>
+          {/* Removed the duplicate empty link here */}
+          {/* Add a link to the Inventory/Products page */}
+          <Link to="/inventory" style={{ color: 'white', marginLeft: '20px', textDecoration: 'none' }}>Inventory</Link>
         </div>
 
         {/* Search bar */}
-        <form onSubmit={handleSearchSubmit} style={{ 
-          flex: '1', 
-          display: 'flex', 
-          justifyContent: 'center', 
-          maxWidth: '400px', 
-          margin: '0 20px' 
+        <form onSubmit={handleSearchSubmit} style={{
+          flex: '1',
+          display: 'flex',
+          justifyContent: 'center',
+          maxWidth: '400px',
+          margin: '0 20px'
         }}>
-          <input 
-            type="text" 
+          <input
+            type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products..." 
+            placeholder="Search products..."
             style={{
               width: '100%',
               padding: '8px 12px',
@@ -48,8 +51,8 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
               fontSize: '14px'
             }}
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             style={{
               background: '#007bff',
               border: 'none',
@@ -64,6 +67,9 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
         </form>
 
         <div className="navbar-links">
+           {/* === Add Cart Link === */}
+           <Link to="/cart">Cart ({cartItemCount || 0})</Link> {/* Display item count */}
+
           {isAuthenticated ? (
             <>
               {/* === Role Specific Links (Simulation) === */}
@@ -72,15 +78,13 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout }) {
               {/* === End Role Specific Links === */}
 
               <Link to="/profile">Profile ({userName})</Link> {/* Show simulated name */}
-              {/* Add link to Cart page later */}
-              {/* <Link to="/cart">Cart</Link> */}
+
               <button onClick={handleLogoutClick} className="logout-button" style={{ marginLeft:'10px', cursor:'pointer', background:'transparent', border:'none', color:'white', padding:'5px 10px' }}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              {/* <Link to="/cart">Cart</Link> */}
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </>
