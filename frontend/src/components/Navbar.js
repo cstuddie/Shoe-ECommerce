@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-// Receives simulated state, logout handler, and cartItemCount from App.js props
-function Navbar({ isAuthenticated, userRole, userName, onLogout, cartItemCount }) { // Receive cartItemCount
+// Receives simulated state, handlers, cartItemCount, and wishlistitemcount from App.js props
+function Navbar({ isAuthenticated, userRole, userName, onLogout, cartItemCount, wishlistItemCount }) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogoutClick = () => {
-    onLogout(); // Call the logout handler from App.js
-    navigate('/'); // Redirect to home page after logout
+    onLogout();
+    navigate('/');
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // Navigate to the Inventory page with the search term as a query parameter
       navigate(`/inventory?search=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery(''); // Clear the search input after submitting
+      setSearchQuery('');
     }
   };
 
@@ -25,8 +24,7 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout, cartItemCount }
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Link to="/" className="navbar-brand">Stepup</Link>
-          {/* Removed the duplicate empty link here */}
-          {/* Add a link to the Inventory/Products page */}
+          {/* Inventory link always visible? Or only for logged-in? Let's keep it public */}
           <Link to="/inventory" style={{ color: 'white', marginLeft: '20px', textDecoration: 'none' }}>Inventory</Link>
         </div>
 
@@ -67,17 +65,22 @@ function Navbar({ isAuthenticated, userRole, userName, onLogout, cartItemCount }
         </form>
 
         <div className="navbar-links">
-           {/* === Add Cart Link === */}
-           <Link to="/cart">Cart ({cartItemCount || 0})</Link> {/* Display item count */}
+           <Link to="/cart">Cart ({cartItemCount || 0})</Link>
+           {/* Wishlist link goes to Cart page */}
+           <Link to="/cart" style={{ marginLeft: '15px' }}>Wishlist ({wishlistItemCount || 0})</Link>
+
 
           {isAuthenticated ? (
             <>
               {/* === Role Specific Links (Simulation) === */}
+              {/* Add check for userRole === 'seller' or 'admin' */}
+              {(userRole === 'seller' || userRole === 'admin') && <Link to="/seller">Seller Dashboard</Link>}
+
+              {/* Admin link - only for admin */}
               {userRole === 'admin' && <Link to="/admin">Admin Panel</Link>}
-              {userRole === 'seller' && <Link to="/seller">Seller Dashboard</Link>}
               {/* === End Role Specific Links === */}
 
-              <Link to="/profile">Profile ({userName})</Link> {/* Show simulated name */}
+              <Link to="/profile">Profile ({userName})</Link>
 
               <button onClick={handleLogoutClick} className="logout-button" style={{ marginLeft:'10px', cursor:'pointer', background:'transparent', border:'none', color:'white', padding:'5px 10px' }}>
                 Logout

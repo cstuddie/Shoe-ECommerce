@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 // will eventually come from DB, but mock data for now
-// will be seperate function for calling inventory/product
+// Added sellerId and isListed properties for simulation
 const productData = {
-  1: { // Numeric key
+  1: {
     id: 1,
     name: 'Stylish Runner',
     price: '120',
@@ -13,9 +13,11 @@ const productData = {
     imageUrl: require('../components/assets/runningshoes.jpg'),
     menSizes: ['7', '8', '9', '10', '11', '12', '13'],
     womenSizes: ['5', '6', '7', '8', '9', '10', '11'],
-    colors: ['Black/White', 'Blue/Gray', 'Red/White']
+    colors: ['Black/White', 'Blue/Gray', 'Red/White'],
+    sellerId: 101, // Simulate this product belongs to seller 101
+    isListed: true // Simulate initial status
   },
-  2: { // Numeric key
+  2: {
     id: 2,
     name: 'Classic Comfort',
     price: '90',
@@ -23,9 +25,11 @@ const productData = {
     imageUrl: require('../components/assets/classicrunning.jpg'),
     menSizes: ['7', '8', '9', '10', '11', '12'],
     womenSizes: ['5', '6', '7', '8', '9', '10'],
-    colors: ['White/Gray', 'Black/Black', 'Navy/White']
+    colors: ['White/Gray', 'Black/Black', 'Navy/White'],
+    sellerId: 102, // Simulate this product belongs to seller 102
+    isListed: true // Simulate initial status
   },
-  3: { // Numeric key
+  3: {
     id: 3,
     name: 'Urban Explorer',
     price: '150',
@@ -33,9 +37,11 @@ const productData = {
     imageUrl: require('../components/assets/urbanshoes.jpg'),
     menSizes: ['7', '8', '9', '10', '11', '12'],
     womenSizes: ['5', '6', '7', '8', '9', '10'],
-    colors: ['Black/Black', 'Brown/Tan', 'Gray/White']
+    colors: ['Black/Black', 'Brown/Tan', 'Gray/White'],
+    sellerId: 101, // Simulate this product belongs to seller 101
+    isListed: false // Simulate initial status (unlisted)
   },
-  4: { // Numeric key
+  4: {
     id: 4,
     name: 'Casual Walker',
     price: '85',
@@ -43,43 +49,67 @@ const productData = {
     imageUrl: require('../components/assets/casual.webp'),
     menSizes: ['7', '8', '9', '10', '11', '12', '13'],
     womenSizes: ['5', '6', '7', '8', '9', '10', '11'],
-    colors: ['Gray/White', 'Black/White', 'Blue/White']
+    colors: ['Gray/White', 'Black/White', 'Blue/White'],
+    sellerId: 102, // Simulate this product belongs to seller 102
+    isListed: true // Simulate initial status
+  },
+  // Add more products and assign sellerIds (e.g., some with sellerId: 101, some with 102)
+   5: {
+    id: 5,
+    name: 'Seller 101 Special',
+    price: '100',
+    description: 'Exclusive shoe just for seller 101.',
+    imageUrl: require('../components/assets/runningshoes.jpg'), // Re-using image
+    menSizes: ['8', '9', '10'],
+    womenSizes: ['6', '7', '8'],
+    colors: ['Green'],
+    sellerId: 101,
+    isListed: true
+  },
+   6: {
+    id: 6,
+    name: 'Seller 102 Exclusive',
+    price: '110',
+    description: 'Exclusive shoe just for seller 102.',
+    imageUrl: require('../components/assets/classicrunning.jpg'), // Re-using image
+    menSizes: ['9', '10', '11'],
+    womenSizes: ['7', '8', '9'],
+    colors: ['Purple'],
+    sellerId: 102,
+    isListed: false // Starts unlisted
   }
 };
 
-// Receives onAddToCart handler from App.js route setup
-function ProductPage({ onAddToCart }) {
+// Receives onAddToCart and onAddToWishlist handlers from App.js
+function ProductPage({ onAddToCart, onAddToWishlist }) { // Receive onAddToWishlist
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-  const [selectedGender, setSelectedGender] = useState('men'); // Default to men
+  const [selectedGender, setSelectedGender] = useState('men');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Add error state
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Simulate API fetch
     setLoading(true);
-    setError(null); // Clear previous errors
+    setError(null);
     const productIdNum = parseInt(productId);
     const fetchedProduct = productData[productIdNum];
 
-    // Simulate network delay
     setTimeout(() => {
       if (fetchedProduct) {
         setProduct(fetchedProduct);
-        // Set initial selected variation states
-        setSelectedGender('men'); // Default
+        setSelectedGender('men');
         setSelectedSize(fetchedProduct.menSizes && fetchedProduct.menSizes.length > 0 ? fetchedProduct.menSizes[0] : '');
         setSelectedColor(fetchedProduct.colors && fetchedProduct.colors.length > 0 ? fetchedProduct.colors[0] : '');
       } else {
-        setProduct(null); // Ensure product is null if not found
-        setError("Product not found."); // Set error message
+        setProduct(null);
+        setError("Product not found.");
       }
       setLoading(false);
     }, 300);
 
-  }, [productId]); // Re-run effect when productId changes
+  }, [productId]);
 
   const getCurrentSizes = () => {
     if (!product) return [];
@@ -88,13 +118,11 @@ function ProductPage({ onAddToCart }) {
 
   const handleGenderChange = (gender) => {
     setSelectedGender(gender);
-    // Reset size selection to first available in the new gender category
     const newSizes = gender === 'men' ? product.menSizes : product.womenSizes;
     setSelectedSize(newSizes && newSizes.length > 0 ? newSizes[0] : '');
   };
 
   const handleAddToCartClick = () => {
-      // === Validation: Ensure size and color are selected ===
       if (!selectedSize) {
           alert("Please select a size.");
           return;
@@ -103,12 +131,25 @@ function ProductPage({ onAddToCart }) {
           alert("Please select a color.");
           return;
       }
-      // Gender is defaulted, but you could add a check if needed
-
-      // Call the handler passed from App.js
-      // Pass the product details and selected variations
-      onAddToCart(product, selectedSize, selectedColor, selectedGender, 1); // Add 1 quantity by default
+      // Pass the product details and selected variations to the handler from App.js
+      // Pass the full product object if needed by the handler, otherwise just ID/variations
+      onAddToCart(product, selectedSize, selectedColor, selectedGender, 1);
   };
+
+  // === New handler for Add to Wishlist ===
+   const handleAddToWishlistClick = () => {
+       if (!selectedSize) {
+           alert("Please select a size.");
+           return;
+       }
+        if (!selectedColor) {
+           alert("Please select a color.");
+           return;
+       }
+       // Pass product details and variations to the wishlist handler from App.js
+       onAddToWishlist(product, selectedSize, selectedColor, selectedGender);
+   };
+   // === End New handler ===
 
 
   if (loading) {
@@ -119,10 +160,10 @@ function ProductPage({ onAddToCart }) {
     );
   }
 
-  if (error || !product) { // Handle both explicit error and product not found
+  if (error || !product) {
     return (
       <div className="container" style={{ textAlign: 'center', padding: '50px 0' }}>
-        <h2>{error || "Product Not Found"}</h2> {/* Display error message */}
+        <h2>{error || "Product Not Found"}</h2>
         <p>{!error && "The product you're looking for doesn't exist or has been removed."}</p>
         <Link to="/" style={{ color: '#007bff', textDecoration: 'none' }}>
           Return to Home
@@ -131,7 +172,7 @@ function ProductPage({ onAddToCart }) {
     );
   }
 
-   // Use inline styles or move to CSS file
+  // Use inline styles or move to CSS file
   const pageStyles = {
       padding: '20px 0',
       maxWidth: '1000px', // Limit width
@@ -186,6 +227,27 @@ function ProductPage({ onAddToCart }) {
         background: 'white',
         fontWeight: 'normal'
    }
+
+   // Add to cart button specific style
+    const addToCartButtonStyles = {
+        padding: '12px 24px',
+        background: '#28a745', // Green color
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        fontWeight: 'bold'
+    };
+
+     // Add to wishlist button specific style
+    const addToWishlistButtonStyles = {
+        padding: '12px 24px',
+        background: 'white',
+        color: '#333',
+        border: '1px solid #333',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    };
 
 
   return (
@@ -264,29 +326,14 @@ function ProductPage({ onAddToCart }) {
           {/* Action Buttons */}
           <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
             <button
-               onClick={handleAddToCartClick} // === Add the click handler ===
-              style={{
-                padding: '12px 24px',
-                background: '#28a745', // Green color for Add to Cart
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontWeight: 'bold'
-              }}
+               onClick={handleAddToCartClick} // Call Add to Cart handler
+              style={addToCartButtonStyles} // Use specific styles
             >
               Add to Cart
             </button>
             <button
-              // Add onClick handler later for adding to wishlist simulation
-              style={{
-                padding: '12px 24px',
-                background: 'white',
-                color: '#333',
-                border: '1px solid #333',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
+              onClick={handleAddToWishlistClick} // === Call Add to Wishlist handler ===
+              style={addToWishlistButtonStyles} // Use specific styles
             >
               Add to Wishlist
             </button>
