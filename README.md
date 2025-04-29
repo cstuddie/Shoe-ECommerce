@@ -1,33 +1,50 @@
-# Shoe-ECommerce
+# StepUp - Shoe E-Commerce Platform
 
-An E-Commerce platform dedicated to selling shoes. This platform will be accessible through any standard web browser.
+A modern, responsive e-commerce platform dedicated to selling footwear. StepUp provides a complete shopping experience accessible through any standard web browser.
 
 ## Overview
-Shoe-ECommerce is an online marketplace where registered sellers can add approved items to the store and manage their products. Customers will have various interaction options, including browsing products, making purchases, tracking orders, and accessing discounts and promotions. The system will also handle payments and order tracking seamlessly.
+StepUp is an online marketplace where registered sellers can add and manage their footwear products. Customers can browse products, add items to their cart, manage their wishlist, and complete purchases. The platform includes user authentication, product management, and a responsive design that works on both desktop and mobile devices.
 
 ## Technologies Used
-- HTML
-- CSS
-- JavaScript
-- Node.js
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: MySQL
+- **Template Engine**: EJS
+- **Additional Libraries**: express-session, multer (image upload)
+
 
 ## Team Members
-| Name           | NetID      | GitHub Username | Role                          |
-|--------------|------------|----------------|------------------------------|
-| Caleb Studdie | chs263     | cstuddie       | Team Leader, Full-Stack Developer |
-| Ashmit Mishra | am5087     | ashmitkmishra              | Full-stack Developer         |
-| Jacob Philips | jsp452     | JacobSPhillips          | Back-End Developer         |
-| Andra Dusin   | ard515     | DusinA              | Back-End Developer         |
-| Avian Rose    | adr554     | RoseGuy20              | Front-End Developer         |
+| Name           | NetID      | GitHub Username | Role                             |
+|                |            |                 |                                  |
+|----------------|------------|-----------------|----------------------------------|
+| Caleb Studdie  | chs263     | cstuddie        | Team Leader Full-Stack Developer |
+| Ashmit Mishra  | am5087     | ashmitkmishra   | Full-stack Developer             |
+| Jacob Philips  | jsp452     | JacobSPhillips  | Back-End Developer               |
+| Andra Dusin    | ard515     | DusinA          | Back-End Developer               |
+| Avian Rose     | adr554     | RoseGuy20       | Full-Stack Developer             |
 
 ## Features
 - Seller registration and product management
 - Customer product browsing and purchasing
-- Secure payment processing
-- Order tracking
-- Discounts and promotions
+- Admin capability with product/user managment
 
-## Installation
+
 1. Clone the repository:
    ```sh
-   git clone https://github.com/cstuddie/Shoe-ECommerce
+   git clone https://github.com/cstuddie/Shoe-ECommerce.git
+   ```
+
+2. Navigate to the project directory:
+   ```sh
+   cd Shoe-ECommerce
+   ```
+
+3. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+4. Start the server (for testing):
+   ```sh
+   npx nodmon index.js
+   ```

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StepUp - Premium Footwear</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  
+  <main class="main-content">
+    <%- body %>
+  </main>
+  
+  <%- include('../partials/footer') %>
+  
+  <script src="/js/main.js"></script>
+  
+  <!-- Load seller dashboard JavaScript only when on that page -->
+  <% if (typeof originalUrl !== 'undefined' && originalUrl.includes('/seller')) { %>
+    <script src="/js/seller-dashboard.js"></script>
+  <% } %>
+</body>
+</html>

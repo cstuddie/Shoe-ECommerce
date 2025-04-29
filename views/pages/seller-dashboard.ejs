@@ -1,0 +1,198 @@
+<div class="container seller-dashboard">
+    <h2>Seller Dashboard</h2>
+  
+    <!-- Simulated Sales Info -->
+    <div class="sales-info-box">
+      <h3>Estimated Revenue (Simulation):</h3>
+      <p class="sales-amount">$<%= totalSales %></p>
+    </div>
+  
+    <!-- Error Messages -->
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger" style="margin-bottom: 20px;">
+        <%= error %>
+      </div>
+    <% } %>
+  
+    <!-- Success Messages -->
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success" style="margin-bottom: 20px;">
+        <%= success %>
+      </div>
+    <% } %>
+  
+    <h3>Your Listings</h3>
+    
+    <% if (!products || products.length === 0) { %>
+      <p class="no-products-message">You have no products listed.</p>
+    <% } else { %>
+      <div class="product-listing">
+        <% products.forEach(product => { %>
+          <div class="product-item">
+            <!-- Product Image -->
+            <div class="product-thumbnail-container">
+              <img 
+                src="<%= product.ImageUrl %>" 
+                alt="<%= product.Name %>" 
+                class="product-thumbnail"
+                onerror="this.src='/images/default-product.jpg';"
+              >
+            </div>
+            
+            <!-- Product Details -->
+            <div class="product-info">
+              <p class="product-name"><%= product.Name %></p>
+              <p class="product-price">Price: $<%= product.Price %></p>
+              <p class="product-category">Category: <%= product.Category || 'N/A' %></p>
+              <p class="product-brand">Brand: <%= product.SellerBrand || 'N/A' %></p>
+            </div>
+            
+            <!-- Status -->
+            <div class="product-status <%= product.IsListed ? 'status-listed' : 'status-unlisted' %>">
+              <%= product.IsListed ? 'Listed' : 'Unlisted' %>
+            </div>
+            
+            <!-- Actions -->
+            <div class="product-actions">
+              <!-- Edit Link - Goes to dedicated edit page -->
+              <a 
+                href="/seller/edit-product/<%= product.ProductID %>" 
+                class="btn btn-primary"
+              >
+                Edit
+              </a>
+              
+              <!-- Toggle Listing Status -->
+              <form action="/seller/toggle-listing" method="POST" style="margin: 5px 0;">
+                <input type="hidden" name="productId" value="<%= product.ProductID %>">
+                <button 
+                  type="submit" 
+                  class="btn <%= product.IsListed ? 'btn-warning' : 'btn-success' %>"
+                >
+                  <%= product.IsListed ? 'Unlist' : 'List' %>
+                </button>
+              </form>
+              
+              <!-- Delete Product -->
+              <form action="/seller/delete-product" method="POST" style="margin: 5px 0;"
+                    onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.');">
+                <input type="hidden" name="productId" value="<%= product.ProductID %>">
+                <button 
+                  type="submit" 
+                  class="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+    
+    <!-- Add New Product Section -->
+    <div class="add-product-form">
+      <h3>Add New Product</h3>
+      <form action="/seller/add-product" method="POST" enctype="multipart/form-data">
+        <!-- Basic Product Information -->
+        <div class="form-group">
+          <label for="name">Product Name:</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            class="form-control"
+            placeholder="e.g. Stylish Runner"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="price">Price ($):</label>
+          <input 
+            type="number" 
+            id="price" 
+            name="price" 
+            step="0.01" 
+            min="0" 
+            required 
+            class="form-control"
+            placeholder="e.g. 120.00"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            rows="4" 
+            required 
+            class="form-control"
+            placeholder="Describe your product in detail..."
+          ></textarea>
+        </div>
+        
+        <!-- Product Categorization -->
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" name="category" class="form-control">
+              <option value="Running">Running</option>
+              <option value="Casual">Casual</option>
+              <option value="Formal">Formal</option>
+              <option value="Athletic">Athletic</option>
+              <option value="Urban">Urban</option>
+            </select>
+          </div>
+        
+        <div class="form-group">
+          <label for="brand">Brand:</label>
+          <input 
+            type="text" 
+            id="brand" 
+            name="brand" 
+            class="form-control"
+            placeholder="e.g. Your Brand Name"
+          >
+        </div>
+        
+        <!-- Inventory Details -->
+        <div class="form-group">
+          <label for="quantity">Initial Quantity:</label>
+          <input 
+            type="number" 
+            id="quantity" 
+            name="quantity" 
+            min="1" 
+            value="100"
+            class="form-control"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="featured">Featured Product:</label>
+          <select id="featured" name="featured" class="form-control">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+          <p class="help-text">* Featured products appear on the home page.</p>
+        </div>
+        
+        <!-- Product Image -->
+        <div class="form-group">
+          <label for="image">Product Image:</label>
+          <input 
+            type="file" 
+            id="image" 
+            name="image" 
+            accept="image/*"
+            class="form-control-file"
+          >
+          <p class="help-text">* If no image is uploaded, a default image will be used.</p>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Add Product</button>
+      </form>
+    </div>
+  </div>
