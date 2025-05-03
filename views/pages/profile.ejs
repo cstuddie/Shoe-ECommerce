@@ -1,0 +1,42 @@
+<div class="container">
+    <h2>My Profile</h2>
+    <div>
+      <p><strong>Welcome, <%= userName %>!</strong></p>
+      <p>Your Role: <%= userRole %></p>
+    </div>
+  
+    <hr style="margin: 20px 0"/>
+  
+    <!-- Profile Editing -->
+    <div>
+      <h3>Edit Profile</h3>
+      <form action="/profile/update" method="POST">
+        <div>
+          <label for="name">New Name: </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= userName %>"
+            required
+            style="padding: 8px; margin-right: 10px;"
+          />
+        </div>
+        <button type="submit" style="padding: 8px 12px; cursor: pointer; margin-right: 10px; margin-top: 10px;">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  
+    <hr style="margin: 20px 0"/>
+  
+    <!-- Account Deletion -->
+    <div>
+      <h3>Account Actions</h3>
+      <form action="/profile/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+        <button type="submit" style="padding: 8px 12px; cursor: pointer; background: #dc3545; color: white; border:none;">
+          Delete My Account
+        </button>
+      </form>
+    </div>
+  </div>

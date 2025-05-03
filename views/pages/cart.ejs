@@ -1,0 +1,107 @@
+<div class="container" style="padding-top: 20px; padding-bottom: 40px;">
+    <h2>Shopping Cart</h2>
+  
+    <% if (cart.length === 0) { %>
+      <p style="text-align: center; margin-top: 20px;">Your cart is empty. <a href="/inventory">Continue Shopping</a></p>
+    <% } else { %>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <% cart.forEach(item => { %>
+          <div style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; display: flex; align-items: center; gap: 20px; background-color: white;">
+            <!-- Item Image -->
+            <img 
+              src="<%= item.imageUrl %>" 
+              alt="<%= item.name %>" 
+              style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;"
+              onerror="this.src='/images/default-product.jpg';"
+            />
+  
+            <!-- Item Details -->
+            <div style="flex-grow: 1;">
+              <h3><%= item.name %></h3>
+              <p>Price: $<%= item.price.toFixed(2) %></p>
+            </div>
+  
+            <!-- Quantity Controls -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <form action="/cart/update-quantity" method="POST" style="display: inline;">
+                <input type="hidden" name="cartItemId" value="<%= item.cartItemId %>">
+                <input type="hidden" name="action" value="decrease">
+                <button type="submit" style="padding: 5px 10px; cursor: pointer;">-</button>
+              </form>
+              <span><%= item.quantity %></span>
+              <form action="/cart/update-quantity" method="POST" style="display: inline;">
+                <input type="hidden" name="cartItemId" value="<%= item.cartItemId %>">
+                <input type="hidden" name="action" value="increase">
+                <button type="submit" style="padding: 5px 10px; cursor: pointer;">+</button>
+              </form>
+            </div>
+  
+            <!-- Subtotal and Remove -->
+            <div style="text-align: right;">
+              <p style="font-weight: bold;">Subtotal: $<%= (item.price * item.quantity).toFixed(2) %></p>
+              <form action="/cart/remove" method="POST">
+                <input type="hidden" name="cartItemId" value="<%= item.cartItemId %>">
+                <button type="submit" style="padding: 5px 10px; cursor: pointer; background: none; border: none; color: #dc3545;">
+                  Remove
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+  
+      <!-- Cart Summary -->
+      <div style="text-align: right; margin-top: 20px; font-size: 1.2em;">
+        <p><strong>Total: $<%= totalPrice %></strong></p>
+        <form action="/checkout" method="GET">
+          <button type="submit" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+            Proceed to Checkout
+          </button>
+        </form>
+      </div>
+    <% } %>
+  
+    <hr style="margin: 40px 0; border-color: #ccc;"/>
+  
+    <!-- Wishlist Section -->
+    <h2>My Wishlist</h2>
+    <% if (!wishlist || wishlist.length === 0) { %>
+      <p style="text-align: center; margin-top: 20px;">Your wishlist is empty.</p>
+    <% } else { %>
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <% wishlist.forEach(item => { %>
+          <div style="border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px; display: flex; align-items: center; gap: 15px; background-color: #fefefe;">
+            <!-- Item Image -->
+            <img 
+              src="<%= item.imageUrl %>" 
+              alt="<%= item.name %>" 
+              style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;"
+              onerror="this.src='/images/default-product.jpg';"
+            />
+  
+            <!-- Item Details -->
+            <div style="flex-grow: 1;">
+              <p style="font-weight: bold; margin-bottom: 5px;"><%= item.name %></p>
+              <p style="font-size: 1em; font-weight: bold; color: #007bff; margin-top: 5px;">$<%= item.price.toFixed(2) %></p>
+            </div>
+  
+            <!-- Wishlist Actions -->
+            <div style="display: flex; flex-direction: column; gap: 5px; text-align: right;">
+              <form action="/wishlist/move-to-cart" method="POST">
+                <input type="hidden" name="wishlistItemId" value="<%= item.wishlistItemId %>">
+                <button type="submit" style="padding: 5px 10px; cursor: pointer; background: #ffc107; color: #212529; border: none; border-radius: 4px;">
+                  Move to Cart
+                </button>
+              </form>
+              <form action="/wishlist/remove" method="POST">
+                <input type="hidden" name="wishlistItemId" value="<%= item.wishlistItemId %>">
+                <button type="submit" style="padding: 5px 10px; cursor: pointer; background: none; border: none; color: #dc3545;">
+                  Remove
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>

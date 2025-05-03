@@ -1,0 +1,123 @@
+<div class="container" style="padding-top: 20px; padding-bottom: 40px; max-width: 700px; margin: auto;">
+    <h2>Checkout</h2>
+    
+    <% if (typeof error !== 'undefined' && error) { %>
+      <p style="color: red; margin-bottom: 1rem;"><%= error %></p>
+    <% } %>
+    
+    <!-- Order Summary -->
+    <div style="margin-bottom: 30px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+      <h3>Order Summary</h3>
+      <% cart.forEach(item => { %>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dotted #eee;">
+          <span><%= item.name %> x <%= item.quantity %></span>
+          <span>$<%= (item.price * item.quantity).toFixed(2) %></span>
+        </div>
+      <% }); %>
+      <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 15px;">
+        <span>Total:</span>
+        <span>$<%= totalPrice %></span>
+      </div>
+    </div>
+    
+    <form action="/checkout" method="POST">
+      <!-- Shipping Details Section -->
+      <div style="margin-bottom: 30px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #fff;">
+        <h3>Shipping Information</h3>
+        <div style="margin-bottom: 1rem;">
+          <label for="name" style="display: block; margin-bottom: 5px;">Full Name:</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            style="width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+          >
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="address" style="display: block; margin-bottom: 5px;">Shipping Address:</label>
+          <input 
+            type="text" 
+            id="address" 
+            name="address" 
+            required 
+            style="width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+          >
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label for="phone" style="display: block; margin-bottom: 5px;">Phone Number:</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            required 
+            style="width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+          >
+        </div>
+      </div>
+      
+      <!-- Payment Section -->
+      <div style="margin-bottom: 30px; border: 1px solid #ddd; border-radius: 8px; padding: 15px; background-color: #fff;">
+        <h3>Payment Information (Simulation)</h3>
+        <div style="margin-bottom: 1rem;">
+          <label for="paymentMethod" style="display: block; margin-bottom: 5px;">Select Method:</label>
+          <select 
+            id="paymentMethod" 
+            name="paymentMethod" 
+            required 
+            style="width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+          >
+            <option value="">-- Select Payment Method --</option>
+            <option value="credit_card">Credit Card (Simulated)</option>
+            <option value="paypal">PayPal (Simulated)</option>
+          </select>
+        </div>
+        
+        <!-- Credit Card Fields (conditionally shown) -->
+        <div id="creditCardFields" style="display: none; border: 1px dashed #ccc; padding: 10px; margin-top: 15px; background-color: #f8f8f8;">
+          <p style="text-align: center; font-style: italic; color: #555;">
+            Credit Card Input Fields (Simulation)
+          </p>
+        </div>
+        
+        <!-- PayPal Fields (conditionally shown) -->
+        <div id="paypalFields" style="display: none; border: 1px dashed #ccc; padding: 10px; margin-top: 15px; background-color: #f8f8f8;">
+          <p style="text-align: center; font-style: italic; color: #555;">
+            PayPal Checkout (Simulation)
+          </p>
+        </div>
+      </div>
+      
+      <!-- Place Order Button -->
+      <div style="text-align: center;">
+        <button 
+          type="submit" 
+          style="padding: 15px 30px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1.2em; font-weight: bold;"
+        >
+          Simulate Place Order
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    // Show/hide payment method fields
+    document.addEventListener('DOMContentLoaded', function() {
+      const paymentMethodSelect = document.getElementById('paymentMethod');
+      const creditCardFields = document.getElementById('creditCardFields');
+      const paypalFields = document.getElementById('paypalFields');
+      
+      paymentMethodSelect.addEventListener('change', function() {
+        // Hide all payment fields first
+        creditCardFields.style.display = 'none';
+        paypalFields.style.display = 'none';
+        
+        // Show the selected payment method fields
+        if (this.value === 'credit_card') {
+          creditCardFields.style.display = 'block';
+        } else if (this.value === 'paypal') {
+          paypalFields.style.display = 'block';
+        }
+      });
+    });
+  </script>

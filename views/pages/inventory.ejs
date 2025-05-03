@@ -1,0 +1,99 @@
+<div class="container" style="display: flex; padding: 20px 0;">
+    <!-- Search/Filter Panel -->
+    <div style="width: 25%; padding: 0 15px; flex-shrink: 0;">
+      <h3>Search & Filter</h3>
+      <form action="/inventory" method="GET">
+        <div style="margin-bottom: 20px;">
+          <label for="search" style="display: block; margin-bottom: 5px;">Search:</label>
+          <input 
+            type="text" 
+            id="search" 
+            name="search" 
+            value="<%= searchTerm %>" 
+            placeholder="Search shoes..." 
+            style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"
+          >
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <label for="category" style="display: block; margin-bottom: 5px;">Category:</label>
+            <select 
+              id="category" 
+              name="category" 
+              style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"
+            >
+              <option value="" <%= !categoryFilter ? 'selected' : '' %>>All Categories</option>
+              <option value="Running" <%= categoryFilter === 'Running' ? 'selected' : '' %>>Running</option>
+              <option value="Casual" <%= categoryFilter === 'Casual' ? 'selected' : '' %>>Casual</option>
+              <option value="Formal" <%= categoryFilter === 'Formal' ? 'selected' : '' %>>Formal</option>
+              <option value="Athletic" <%= categoryFilter === 'Athletic' ? 'selected' : '' %>>Athletic</option>
+              <option value="Urban" <%= categoryFilter === 'Urban' ? 'selected' : '' %>>Urban</option>
+            </select>
+          </div>
+        
+        <div style="margin-bottom: 20px;">
+          <label for="brand" style="display: block; margin-bottom: 5px;">Brand:</label>
+          <select 
+            id="brand" 
+            name="brand" 
+            style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;"
+          >
+            <option value="" <%= !brandFilter ? 'selected' : '' %>>All Brands</option>
+            <option value="brandA" <%= brandFilter === 'brandA' ? 'selected' : '' %>>Brand A (Simulated)</option>
+            <option value="brandB" <%= brandFilter === 'brandB' ? 'selected' : '' %>>Brand B (Simulated)</option>
+          </select>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <label for="price" style="display: block; margin-bottom: 5px;">
+            Max Price: $<%= priceRange %>
+          </label>
+          <input 
+            type="range" 
+            id="price" 
+            name="price" 
+            min="0" 
+            max="2000" 
+            step="5" 
+            value="<%= priceRange %>" 
+            style="width: 100%;"
+          >
+        </div>
+        
+        <div style="display: flex; gap: 10px;">
+          <button 
+            type="submit" 
+            style="flex: 1; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
+          >
+            Apply Filters
+          </button>
+          <a 
+            href="/inventory" 
+            style="flex: 1; padding: 10px; background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; text-align: center; text-decoration: none; color: #333;"
+          >
+            Reset
+          </a>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Product Grid -->
+    <div style="width: 75%; padding: 0 15px;">
+      <h2>All Products (<%= products.length %>)</h2>
+      <% if (products.length === 0) { %>
+        <p style="text-align: center; margin-top: 20px;">No products match your criteria.</p>
+      <% } else { %>
+        <div class="product-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+          <% products.forEach(product => { %>
+            <a href="/product/<%= product.ProductID %>" style="text-decoration: none; color: inherit;">
+              <div class="hover-effect" style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; background-color: white;">
+                <img src="<%= product.ImageUrl %>" alt="<%= product.Name %>" style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px;">
+                <h3 style="margin: 10px 0 5px;"><%= product.Name %></h3>
+                <p style="font-weight: bold; color: #007bff;">$<%= product.Price %></p>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </div>
