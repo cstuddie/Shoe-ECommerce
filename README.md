@@ -46,5 +46,5 @@ StepUp is an online marketplace where registered sellers can add and manage thei
 
 4. Start the server (for testing):
    ```sh
-   npx nodmon index.js
+   npx nodemon index.js
    ```
