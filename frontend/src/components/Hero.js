@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
     <div className="hero">
       <div className="container">
-        <h1>Welcome to ShoeStore</h1>
+        <h1>Welcome to Stepup</h1>
         <p>Find your perfect pair today!</p>
-        {/* This button will eventually link to the products page */}
-        <button className="hero-button">Shop Now </button>
+        <Link to="/inventory" style={{ textDecoration: 'none' }}>
+          <button className="hero-button">Shop Now</button>
+        </Link>
       </div>
     </div>
   );
