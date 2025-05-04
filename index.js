@@ -123,7 +123,7 @@ app.get('/inventory', (req, res) => {
     const searchTerm = req.query.search || '';
     const categoryFilter = req.query.category || '';
     const brandFilter = req.query.brand || '';
-    const priceRange = parseInt(req.query.price || 200);
+    const priceRange = parseInt(req.query.price || 2000);
     
     // Build query with filters and ensure IsListed = 1
     let query = 'SELECT * FROM Products WHERE IsListed = 1';
