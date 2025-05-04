@@ -12,13 +12,12 @@
       <h3>Edit Profile</h3>
       <form action="/profile/update" method="POST">
         <div>
-          <label for="name">New Name: </label>
+          <label for="password">New Password: </label>
           <input
-            type="text"
-            id="name"
-            name="name"
-            value="<%= userName %>"
-            required
+          type="password"
+          id="password"
+          name="password"
+          required
             style="padding: 8px; margin-right: 10px;"
           />
         </div>
