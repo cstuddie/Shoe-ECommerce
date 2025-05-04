@@ -53,10 +53,10 @@ StepUp is an online marketplace where registered sellers can add and manage thei
 
 ## Accounts For Testing
 
-test@example.com - admin account
-testuser@example.com - user account
-testseller@example.com - seller 1 account
-suit@example.com - seller 2 account
+- test@example.com - admin account
+- testuser@example.com - user account
+- testseller@example.com - seller 1 account
+- suit@example.com - seller 2 account
 
 password: testpassword
 
