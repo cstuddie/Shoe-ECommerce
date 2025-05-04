@@ -919,9 +919,11 @@ app.get('/admin', isAuthenticated, (req, res) => {
 app.get('/admin/users', isAuthenticated, (req, res, next) => {
   if (req.session.userRole !== 'admin') return res.redirect('/');
   connection.query(
-    'SELECT id, name, email, role FROM Users',
+    // Select only the fields you need, aliasing for clarity
+    'SELECT id, Email AS email, Classification AS role FROM User',
     (err, results) => {
       if (err) return next(err);
+      // results will be [{ id:1, email:'foo@bar.com', role:'customer' }, …]
       res.render('pages/admin/users', { users: results });
     }
   );
@@ -930,7 +932,7 @@ app.post('/admin/users/delete', isAuthenticated, (req, res, next) => {
   if (req.session.userRole !== 'admin') return res.redirect('/');
   const { userId } = req.body;
   connection.query(
-    'DELETE FROM Users WHERE id = ?',
+    'DELETE FROM User WHERE id = ?', 
     [userId],
     err => {
       if (err) return next(err);
