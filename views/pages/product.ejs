@@ -1,0 +1,80 @@
+<div class="container product-detail-page">
+    <% if (product) { %>
+      <!-- Success messages -->
+      <% if (locals.query && locals.query.added) { %>
+        <div class="alert alert-success">
+          Item successfully added to cart!
+        </div>
+      <% } %>
+      
+      <% if (locals.query && locals.query.wishlisted) { %>
+        <div class="alert alert-success">
+          Item successfully added to wishlist!
+        </div>
+      <% } %>
+  
+      <div class="product-detail-flex">
+        <!-- Image Column -->
+        <div class="product-image-container">
+          <img 
+            src="<%= product.ImageUrl %>" 
+            alt="<%= product.Name %>" 
+            class="product-detail-image"
+            onerror="this.src='/images/default-product.jpg';"
+          >
+        </div>
+        
+        <!-- Details Column -->
+        <div class="product-details-container">
+          <h2><%= product.Name %></h2>
+          <p class="product-price">$<%= product.Price %></p>
+          
+          <div class="product-description">
+            <h3>Description</h3>
+            <p><%= product.Description %></p>
+          </div>
+          
+          <!-- Category and Brand Information -->
+          <div class="product-info-section">
+            <% if (product.Category) { %>
+              <p><strong>Category:</strong> <%= product.Category %></p>
+            <% } %>
+            
+            <% if (product.SellerBrand) { %>
+              <p><strong>Brand:</strong> <%= product.SellerBrand %></p>
+            <% } %>
+          </div>
+          
+          <!-- Quantity and Actions -->
+          <form action="/cart/add" method="POST">
+            <input type="hidden" name="productId" value="<%= product.ProductID %>">
+            
+            <!-- Quantity Selection -->
+            <div class="form-group">
+              <h3>Quantity</h3>
+              <input 
+                type="number" 
+                name="quantity" 
+                min="1" 
+                value="1" 
+                class="form-control"
+                style="max-width: 100px;"
+              >
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button type="submit" class="btn btn-success">Add to Cart</button>
+              <button type="submit" formaction="/wishlist/add" class="btn btn-outline-dark">Add to Wishlist</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    <% } else { %>
+      <div class="product-not-found">
+        <h2>Product Not Found</h2>
+        <p>The product you're looking for doesn't exist or has been removed.</p>
+        <a href="/" class="link-primary">Return to Home</a>
+      </div>
+    <% } %>
+  </div>
