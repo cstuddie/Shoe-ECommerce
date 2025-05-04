@@ -538,9 +538,13 @@ app.post('/logout', (req, res) => {
 
 // User profile routes
 app.get('/profile', isAuthenticated, (req, res) => {
+
+    
+
     res.render('pages/profile', { 
         userName: req.session.userName,
-        userRole: req.session.userRole
+        userRole: req.session.userRole,
+
     });
 });
 
