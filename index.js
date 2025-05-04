@@ -562,18 +562,38 @@ app.post('/profile/update', isAuthenticated, (req, res) => {
       return res.status(500).send('Server error');
     }
 
+
     // Redirect only after the update is successful
     res.redirect('/profile');
   });
 });
 
-  app.post('/profile/delete', isAuthenticated, (req, res) => {
+ app.post('/profile/delete', isAuthenticated, (req, res) => {
+  const userId = req.session.userId;
 
-    // No functionality, will need to account for sellers' products
-    // Clear session
-    req.session.destroy();
-    res.redirect('/');
+  if (!userId) {
+    return res.status(400).send('No user logged in.');
+  }
+
+  const deleteUserQuery = 'DELETE FROM User WHERE id = ?';
+
+  connection.query(deleteUserQuery, [userId], (err, result) => {
+    if (err) {
+      console.error('Error deleting user:', err);
+      return res.status(500).send('Server error');
+    }
+
+    // Destroy session after deleting user
+    req.session.destroy((sessionErr) => {
+      if (sessionErr) {
+        console.error('Error destroying session:', sessionErr);
+        return res.status(500).send('Session error');
+      }
+
+      res.redirect('/');
+    });
   });
+});
 
   // Seller dashboard routes
   app.get('/seller', isAuthenticated, hasRole(['seller', 'admin']), (req, res) => {
