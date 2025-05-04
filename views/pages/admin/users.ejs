@@ -1,0 +1,39 @@
+<!-- views/pages/admin/users.ejs -->
+<div class="container" style="padding: 40px 0;">
+    <h1>Manage Users</h1>
+  
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger" style="margin-bottom: 20px;">
+        <%= error %>
+      </div>
+    <% } %>
+  
+    <table class="table table-striped" style="margin-bottom: 40px;">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td>
+              <form action="/admin/users/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this user?');">
+                <input type="hidden" name="userId" value="<%= user.id %>">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  

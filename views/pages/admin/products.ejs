@@ -1,0 +1,39 @@
+<!-- views/pages/admin/products.ejs -->
+<div class="container" style="padding: 40px 0;">
+    <h1>Manage Products</h1>
+  
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(p => { %>
+          <tr>
+            <td><%= p.ProductID %></td>
+            <td><%= p.Name %></td>
+            <td>$<%= p.Price %></td>
+            <td><%= p.IsListed ? 'Listed' : 'Unlisted' %></td>
+            <td>
+              <form action="/admin/products/toggle-listing" method="POST" style="display:inline; margin-right:5px;">
+                <input type="hidden" name="productId" value="<%= p.ProductID %>">
+                <button type="submit" class="btn btn-secondary btn-sm">
+                  <%= p.IsListed ? 'Unlist' : 'List' %>
+                </button>
+              </form>
+              <form action="/admin/products/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this product?');">
+                <input type="hidden" name="productId" value="<%= p.ProductID %>">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  
