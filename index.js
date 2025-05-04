@@ -906,91 +906,75 @@ app.post('/seller/add-product', isAuthenticated, hasRole(['seller', 'admin']), u
     });
   });
 
-// Admin routes
-app.get('/admin', isAuthenticated, hasRole(['admin']), (req, res) => {
-    res.render('pages/admin/dashboard');
+
+// --- NEW ADMIN DASHBOARD ROUTES ---
+
+// 1) Dashboard landing
+app.get('/admin', isAuthenticated, (req, res) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  res.render('pages/admin/dashboard');
 });
 
-app.get('/admin/users', isAuthenticated, hasRole(['admin']), (req, res) => {
-    connection.query('SELECT * FROM User', (err, users) => {
-        if (err) {
-            console.error('Error fetching users:', err);
-            return res.status(500).render('pages/error', { message: 'Database error' });
-        }
-        
-        res.render('pages/admin/users', { users });
-    });
+// 2) Manage Users
+app.get('/admin/users', isAuthenticated, (req, res, next) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  connection.query(
+    'SELECT id, name, email, role FROM Users',
+    (err, results) => {
+      if (err) return next(err);
+      res.render('pages/admin/users', { users: results });
+    }
+  );
+});
+app.post('/admin/users/delete', isAuthenticated, (req, res, next) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  const { userId } = req.body;
+  connection.query(
+    'DELETE FROM Users WHERE id = ?',
+    [userId],
+    err => {
+      if (err) return next(err);
+      res.redirect('/admin/users');
+    }
+  );
 });
 
-app.post('/admin/users/delete', isAuthenticated, hasRole(['admin']), (req, res) => {
-    const { userId } = req.body;
-    
-    connection.query('DELETE FROM User WHERE id = ?', [userId], (err, result) => {
-        if (err) {
-            console.error('Error deleting user:', err);
-            return res.status(500).render('pages/error', { message: 'Database error' });
-        }
-        
-        res.redirect('/admin/users');
-    });
+// 3) Manage Products
+app.get('/admin/products', isAuthenticated, (req, res, next) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  connection.query(
+    'SELECT ProductID, Name, Price, IsListed FROM Products',
+    (err, results) => {
+      if (err) return next(err);
+      res.render('pages/admin/products', { products: results });
+    }
+  );
+});
+app.post('/admin/products/toggle-listing', isAuthenticated, (req, res, next) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  const { productId } = req.body;
+  connection.query(
+    'UPDATE Products SET IsListed = NOT IsListed WHERE ProductID = ?',
+    [productId],
+    err => {
+      if (err) return next(err);
+      res.redirect('/admin/products');
+    }
+  );
+});
+app.post('/admin/products/delete', isAuthenticated, (req, res, next) => {
+  if (req.session.userRole !== 'admin') return res.redirect('/');
+  const { productId } = req.body;
+  connection.query(
+    'DELETE FROM Products WHERE ProductID = ?',
+    [productId],
+    err => {
+      if (err) return next(err);
+      res.redirect('/admin/products');
+    }
+  );
 });
 
-app.get('/admin/products', isAuthenticated, hasRole(['admin']), (req, res) => {
-    connection.query('SELECT * FROM Products', (err, products) => {
-        if (err) {
-            console.error('Error fetching products:', err);
-            return res.status(500).render('pages/error', { message: 'Database error' });
-        }
-        
-        res.render('pages/admin/products', { products });
-    });
-});
-
-// Add admin toggle product listing route
-app.post('/admin/products/toggle-listing', isAuthenticated, hasRole(['admin']), (req, res) => {
-    const { productId } = req.body;
-    
-    connection.query('SELECT * FROM Products WHERE ProductID = ?', [productId], (err, results) => {
-        if (err) {
-            console.error('Error toggling product listing:', err);
-            return res.status(500).render('pages/error', { message: 'Database error' });
-        }
-        
-        if (results.length === 0) {
-            return res.status(404).render('pages/error', { message: 'Product not found' });
-        }
-        
-        const product = results[0];
-        const newListedStatus = !product.IsListed;
-        
-        connection.query(
-            'UPDATE Products SET IsListed = ? WHERE ProductID = ?',
-            [newListedStatus, productId],
-            (err) => {
-                if (err) {
-                    console.error('Error updating product status:', err);
-                    return res.status(500).render('pages/error', { message: 'Database error' });
-                }
-                
-                res.redirect('/admin/products');
-            }
-        );
-    });
-});
-
-// Add admin delete product route
-app.post('/admin/products/delete', isAuthenticated, hasRole(['admin']), (req, res) => {
-    const { productId } = req.body;
-    
-    connection.query('DELETE FROM Products WHERE ProductID = ?', [productId], (err, result) => {
-        if (err) {
-            console.error('Error deleting product:', err);
-            return res.status(500).render('pages/error', { message: 'Database error' });
-        }
-        
-        res.redirect('/admin/products');
-    });
-});
 
 // Error page
 app.use((req, res) => {
