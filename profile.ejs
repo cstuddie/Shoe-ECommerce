@@ -1,0 +1,67 @@
+<div class="container">
+    <h2>My Profile</h2>
+    <div>
+      <p><strong>Welcome, <%= userName %>!</strong></p>
+      <p>Your Role: <%= userRole %></p>
+    </div>
+  
+    <hr style="margin: 20px 0"/>
+  
+    <!-- Profile Editing -->
+    <div>
+      <h3>Edit Profile</h3>
+      <form action="/profile/update" method="POST">
+        <div>
+          <label for="password">New Password: </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= userName %>"
+            required
+          type="password"
+          id="password"
+          name="password"
+          required
+            style="padding: 8px; margin-right: 10px;"
+          />
+        </div>
+        <button type="submit" style="padding: 8px 12px; cursor: pointer; margin-right: 10px; margin-top: 10px;">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  
+    <hr style="margin: 20px 0"/>
+    <div>
+      <h3>Wallet</h3>
+      <p>Current Balance: $<%= wallet.toFixed(2) %></p>
+      
+      <form action="/profile/wallet" method="POST" style="margin-top: 10px;">
+        <label for="amount">Add Funds:</label>
+        <input 
+          type="number" 
+          id="amount" 
+          name="amount" 
+          min="1" 
+          step="1" 
+          required 
+          style="margin-right: 10px; padding: 5px;"
+        />
+        <button type="submit" style="padding: 5px 10px;">Add</button>
+      </form>
+    </div>
+    
+
+    <hr style="margin: 20px 0"/>
+  
+    <!-- Account Deletion -->
+    <div>
+      <h3>Account Actions</h3>
+      <form action="/profile/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+        <button type="submit" style="padding: 8px 12px; cursor: pointer; background: #dc3545; color: white; border:none;">
+          Delete My Account
+        </button>
+      </form>
+    </div>
+  </div>
